@@ -1,0 +1,8 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    migrations
+max-complexity = 10
+per-file-ignores =
+    */conf/settings/*:F821 E501
