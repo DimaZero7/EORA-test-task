@@ -4,7 +4,7 @@ import re
 from typing import List
 
 from fastapi import APIRouter, Depends
-from openai import OpenAI
+from openai import AsyncOpenAI
 from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -85,8 +85,8 @@ async def get_answer(
         f"Список контекстов: {contexts}"
     )
 
-    client = OpenAI(api_key=OPENAI_API_KEY)
-    chat_completion = client.chat.completions.create(
+    client = AsyncOpenAI(api_key=OPENAI_API_KEY)
+    chat_completion = await client.chat.completions.create(
         messages=[
             {
                 "role": "system",
@@ -116,7 +116,7 @@ async def get_answer(
         f"Обязательно указывай ссылку на решаемый кейс;"
         f"Ссылку на источник указывай сразу а не в конце сообщения;"
     )
-    chat_completion = client.chat.completions.create(
+    chat_completion = await client.chat.completions.create(
         messages=[
             {
                 "role": "system",
